@@ -1,9 +1,12 @@
 import './App.css';
+import LeftContainer from './containers/LeftContainer'
+import RightContainer from './containers/RightContainer'
 
 function App() {
   return (
     <div className="App">
-      Weather app
+      <LeftContainer />
+      <RightContainer />
     </div>
   );
 }
