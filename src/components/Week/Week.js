@@ -1,9 +1,22 @@
 import React from 'react'
 
+const DalyWeatherInfo = props => {
+  return (
+    <div>
+      <p>Tomorrow</p>
+      <img src="https://www.metaweather.com//static/img/weather/png/sn.png" alt=""/>
+      <p>16 C</p>
+      <p>11 C</p>
+    </div>
+  )
+}
+
 const Week = props => {
   return (
     <div>
-        Week
+        {
+          [1,2,3,4,5].map(dalyWeather => <DalyWeatherInfo />)
+        }
     </div>
   )
 }
