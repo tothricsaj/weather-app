@@ -4,7 +4,7 @@ const DalyWeatherInfo = props => {
   return (
     <div>
       <p>Tomorrow</p>
-      <img src="https://www.metaweather.com//static/img/weather/png/sn.png" alt=""/>
+      <img src="https://www.metaweather.com//static/img/weather/png/64/sn.png" alt=""/>
       <p>16 C</p>
       <p>11 C</p>
     </div>

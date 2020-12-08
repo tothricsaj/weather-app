@@ -2,5 +2,5 @@
     width: 70vw;
     height: 100vh;
     float: left;
-    background-color: #141d40;
+    background-color: var(--deepBlue);
 }
