@@ -1,0 +1,54 @@
+.location {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    width: calc(100% - 40px);
+    padding: 0 20px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search {
+    background-color: var(--deepBlue);
+    padding: 10px;
+    border: unset;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.weahterImg {
+    width: 100%;
+    height: 200px;
+    margin-top: 150px;
+}
+
+img {
+    width: 30%;
+    display: block;
+    margin: auto;
+}
+
+.tempValue {
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.tempValue ~ h1 {
+    text-align: center;
+}
+
+.date {
+    width: 100%;
+    color: lightgray;
+}
+
+.date p {
+    margin: 5px 0;
+    text-align: center;
+}
