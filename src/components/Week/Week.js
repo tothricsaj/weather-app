@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './weekStyle.module.css'
+import style from './Week.module.css'
 
 const DalyWeatherInfo = props => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './leftContainerStyle.module.css'
+import style from './LeftContainer.module.css'
 import Location from '../../components/Location/Location'
 
 const LeftContainer = props => {

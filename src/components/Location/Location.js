@@ -6,7 +6,7 @@ const Location = props => {
         <button>Search for places</button>
         <button>Location</button>
 
-        <img src="https://www.metaweather.com/static/img/weather/png/64/lc.png" alt="Weather image"/>
+        <img src="https://www.metaweather.com/static/img/weather/png/64/lc.png" alt="Weathe"/>
 
         <p>15 C</p>
         <p>Shower</p>

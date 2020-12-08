@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './rightContainerStyle.module.css'
+import style from './RightContainer.module.css'
 import Week from '../../components/Week/Week'
 import TodayHighlights from '../../components/TodayHighlights/TodayHighlights'
 
