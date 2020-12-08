@@ -1,0 +1,22 @@
+.todayHighlights {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.hightlightWrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hightlight {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    background-color: var(--softDeepBlue);
+}
+
+.hightlight p,
+.hightlight h1 {
+    text-align: center;
+}

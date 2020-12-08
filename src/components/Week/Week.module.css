@@ -10,7 +10,6 @@
 .dalyWeather {
     width: calc(20% - 10px);
     height: 100%;
-    color: white;
     background-color: var(--softDeepBlue);
 }
 
