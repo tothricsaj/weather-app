@@ -1,6 +1,7 @@
 :root {
   --deepBlue: #141d40;
-  --softDeepBlue: #323d6b;
+  /* --softDeepBlue: #323d6b; */
+  --softDeepBlue: #2c365f;
 }
 
 body {

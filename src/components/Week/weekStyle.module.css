@@ -1,0 +1,34 @@
+.weekWrapper {
+    width: 80%;
+    height: 150px;
+    margin: 100px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.dalyWeather {
+    width: calc(20% - 10px);
+    height: 100%;
+    color: white;
+    background-color: var(--softDeepBlue);
+}
+
+.dalyWeather p {
+    text-align: center;
+}
+
+.dalyWeather img {
+    width: 25%;
+    display: block;
+    margin: auto;
+}
+
+.dalyTemperature {
+    width: 50%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
