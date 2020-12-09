@@ -54,18 +54,19 @@ const Location = props => {
       </div>
 
       <div className={style.weahterImg}>
-        <img
-          src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData ? weatherData.imgAbbr: 'lc'}.png`}
-          alt="Weathe"/>
+        {weatherData
+          ? <img src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData.imgAbbr}.png`} alt="Weathe"/>
+          : 'Loading....'
+        }
       </div>
 
       <div className={style.temerature}>
-        <p className={style.tempValue}>{weatherData ? weatherData.temerature : null} C</p>
-        <h1>Shower</h1>
+        <p className={style.tempValue}>{weatherData ? weatherData.temperature : 'Loading....'} C</p>
+        <h1>{weatherData ? weatherData.state : 'Loading....'}</h1>
       </div>
 
       <div className={style.date}>
-        <p>Today - {weatherData ? weatherData.date : null}</p>
+        <p>Today - {weatherData ? weatherData.date : 'Loading....'}</p>
         <p>{weatherData.city}</p>
       </div>
     </div>
