@@ -16,7 +16,7 @@ const Week = props => {
   return (
     <div className={style.weekWrapper}>
         {
-          [1,2,3,4,5].map(dalyWeather => <DalyWeatherInfo />)
+          [1,2,3,4,5].map(dalyWeather => <DalyWeatherInfo key={dalyWeather} />)
         }
     </div>
   )

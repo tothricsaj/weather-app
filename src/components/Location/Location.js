@@ -12,7 +12,6 @@ const Location = props => {
   useEffect(() => {
     let url
     navigator.geolocation.getCurrentPosition(pos => {
-      console.log(pos.coords.latitude, pos.coords.longitude)
 
       url = `${baseUrl}search/?lattlong=${pos.coords.latitude},${pos.coords.longitude}`
 
@@ -27,23 +26,17 @@ const Location = props => {
 
   useEffect(() => {
     if(woeId) {
-      console.log('Fetch the weather datas')
+      console.log('Fetching the weather datas')
       fetch(proxyUrl + baseUrl + woeId)
         .then(res => res.json())
         .then(data => {
-          console.log(data)
-          const today = data.consolidated_weather[0]
-          const weatherInfos = {
-            imgAbbr: today.weather_state_abbr,
-            state: today.weather_state_name,
-            date: today.applicable_date,
-            temperature: today.the_temp,
-            city: data.title,
-          }
-
-          // console.log(weatherInfos)
-          setWeatherData(weatherInfos)
-        }).catch(err => console.log(err))
+          props.onTodayInfosSetting(data.consolidated_weather[0], data.title)
+          setWeatherData(props.todayInfos)
+          // console.log('ths todayInfos is set -> ' + props.todayInfos.city)
+          console.log('%cEnd of the fetching....', 'color: orange;')
+        }).catch(err => {
+          console.log(err)
+        })
       }
   }, [woeId])
 
@@ -55,9 +48,10 @@ const Location = props => {
       </div>
 
       <div className={style.weahterImg}>
-        {weatherData
-          ? <img src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData.imgAbbr}.png`} alt="Weathe"/>
-          : 'Loading....'
+        {
+          weatherData
+              ? <img src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData.imgAbbr}.png`} alt="Weathe"/>
+              : 'Loading....'
         }
       </div>
 
@@ -68,7 +62,7 @@ const Location = props => {
 
       <div className={style.date}>
         <p>Today - {weatherData ? weatherData.date : 'Loading....'}</p>
-        <p>{weatherData.city}</p>
+        <p>{weatherData ? weatherData.city : 'Loading....'}</p>
       </div>
     </div>
   )
@@ -76,13 +70,24 @@ const Location = props => {
 
 const mapStateToProps = state => {
   return {
+    todayInfos: state.today
+  }
+}
 
+const todayInfosSetting = (infos, cityTitle) => {
+  return {
+    type: 'TODAY',
+    weather_state_abbr: infos.weather_state_abbr,
+    weather_state_name: infos.weather_state_name,
+    applicable_date: infos.applicable_date,
+    the_temp: infos.the_temp,
+    title: cityTitle,
   }
 }
 
 const mapDispatchToState = dispatch => {
   return {
-
+    onTodayInfosSetting: (infos, cityTitle) => dispatch(todayInfosSetting(infos, cityTitle))
   }
 }
 
