@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import style from './Location.module.css'
 
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
@@ -30,7 +31,7 @@ const Location = props => {
       fetch(proxyUrl + baseUrl + woeId)
         .then(res => res.json())
         .then(data => {
-          // console.log(data)
+          console.log(data)
           const today = data.consolidated_weather[0]
           const weatherInfos = {
             imgAbbr: today.weather_state_abbr,
@@ -40,7 +41,7 @@ const Location = props => {
             city: data.title,
           }
 
-          console.log(weatherInfos)
+          // console.log(weatherInfos)
           setWeatherData(weatherInfos)
         }).catch(err => console.log(err))
       }
@@ -73,4 +74,16 @@ const Location = props => {
   )
 }
 
-export default Location
+const mapStateToProps = state => {
+  return {
+
+  }
+}
+
+const mapDispatchToState = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToState)(Location)
