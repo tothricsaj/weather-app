@@ -27,18 +27,14 @@ const Location = props => {
   useEffect(() => {
     if(woeId) {
       console.log('Fetching the weather datas')
-      fetch(proxyUrl + baseUrl + woeId)
-        .then(res => res.json())
-        .then(data => {
-          props.onTodayInfosSetting(data.consolidated_weather[0], data.title)
-          setWeatherData(props.todayInfos)
-          // console.log('ths todayInfos is set -> ' + props.todayInfos.city)
-          console.log('%cEnd of the fetching....', 'color: orange;')
-        }).catch(err => {
-          console.log(err)
-        })
-      }
+      props.onTodayInfosSetting(woeId)
+      console.log(props.todayInfos)
+    }
   }, [woeId])
+
+  useEffect(() => {
+    setWeatherData(props.todayInfos)
+  }, [props.todayInfos])
 
   return (
     <div className={style.location}>
@@ -69,6 +65,7 @@ const Location = props => {
 }
 
 const mapStateToProps = state => {
+  console.log("state -> " + state.today)
   return {
     todayInfos: state.today
   }
@@ -85,9 +82,28 @@ const todayInfosSetting = (infos, cityTitle) => {
   }
 }
 
+const fetchTheWeather = woeId => {
+  return (dispatch, getState) => {
+    fetch(proxyUrl + baseUrl + woeId)
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data)
+        // const week = data.consolidated_weather.slice(1,6)
+        // console.log(week)
+
+        dispatch(todayInfosSetting(data.consolidated_weather[0], data.title))
+
+        console.log('%cEnd of the fetching....', 'color: orange;')
+      }).catch(err => {
+        console.log('%cEnd of the fetching....', 'color: red;')
+        throw new Error(err)
+      })
+  }
+}
+
 const mapDispatchToState = dispatch => {
   return {
-    onTodayInfosSetting: (infos, cityTitle) => dispatch(todayInfosSetting(infos, cityTitle))
+    onTodayInfosSetting: (woeId) => dispatch(fetchTheWeather(woeId))
   }
 }
 

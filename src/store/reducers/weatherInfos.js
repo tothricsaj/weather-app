@@ -1,10 +1,12 @@
+import * as actionTypes from '../actions/actionTypes'
+
 const initialState = {
     weatherInfos: {}
 }
 
 const weatherInfos = (state=initialState, action) => {
     switch(action.type) {
-        case 'TODAY':
+        case actionTypes.TODAY:
             return {
                 ...weatherInfos,
                 today: {
