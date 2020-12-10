@@ -19,7 +19,6 @@ const Location = props => {
       fetch(proxyUrl + url)
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
         setWoeId(data[0].woeid)
       }).catch(err => console.log(err))
     })
@@ -66,17 +65,17 @@ const Location = props => {
 }
 
 const mapStateToProps = state => {
-  // console.log("state -> " + JSON.stringify(state.today))
   return {
     todayInfos: state.today
   }
 }
 
-const todayInfosSetting = (fetchedToday, fetchedWeek, cityTitle) => {
+const weatherInfosSetting = (fetchedToday, fetchedWeek, fetchedHighlights, cityTitle) => {
   return {
     type: actionTypes.WEATHER_INFOS,
     today: fetchedToday,
     week: fetchedWeek,
+    highlights: fetchedHighlights,
     city: cityTitle,
   }
 }
@@ -86,17 +85,19 @@ const fetchTheWeather = woeId => {
     fetch(proxyUrl + baseUrl + woeId)
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
         const today = data.consolidated_weather[0]
         const week = data.consolidated_weather.slice(1,6)
         const city = data.title
-        // console.log(week)
+        const highlights = {
+          windSpeed: today.wind_speed.toFixed(2),
+          humidity: today.humidity,
+          visibility: today.visibility.toFixed(2),
+          airPressure: today.air_pressure.toFixed(2)
+        }
 
-        dispatch(todayInfosSetting(today, week, city))
+        dispatch(weatherInfosSetting(today, week, highlights, city))
 
-        console.log('%cEnd of the fetching....', 'color: orange;')
       }).catch(err => {
-        console.log('%cEnd of the fetching....', 'color: red;')
         throw new Error(err)
       })
   }

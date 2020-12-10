@@ -8,9 +8,10 @@ const weatherInfos = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.WEATHER_INFOS:
             return {
-                ...weatherInfos,
+                ...state,
                 today: action.today,
                 week: action.week,
+                highlights: action.highlights,
                 city: action.city
             }
     }
