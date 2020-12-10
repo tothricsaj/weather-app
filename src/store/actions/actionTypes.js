@@ -1,1 +1,1 @@
-export const TODAY = 'TODAY'
+export const WEATHER_INFOS = 'WEATHER_INFOS'

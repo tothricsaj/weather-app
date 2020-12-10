@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import * as actionTypes from '../../store/actions/actionTypes'
 import style from './Location.module.css'
 
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
@@ -46,18 +47,18 @@ const Location = props => {
       <div className={style.weahterImg}>
         {
           weatherData
-              ? <img src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData.imgAbbr}.png`} alt="Weathe"/>
+              ? <img src={`https://www.metaweather.com/static/img/weather/png/64/${weatherData.weather_state_abbr}.png`} alt="Weathe"/>
               : 'Loading....'
         }
       </div>
 
       <div className={style.temerature}>
-        <p className={style.tempValue}>{weatherData ? weatherData.temperature : 'Loading....'} C</p>
-        <h1>{weatherData ? weatherData.state : 'Loading....'}</h1>
+        <p className={style.tempValue}>{weatherData ? weatherData.the_temp: 'Loading....'} C</p>
+        <h1>{weatherData ? weatherData.weather_state_name : 'Loading....'}</h1>
       </div>
 
       <div className={style.date}>
-        <p>Today - {weatherData ? weatherData.date : 'Loading....'}</p>
+        <p>Today - {weatherData ? weatherData.applicable_date: 'Loading....'}</p>
         <p>{weatherData ? weatherData.city : 'Loading....'}</p>
       </div>
     </div>
@@ -65,20 +66,17 @@ const Location = props => {
 }
 
 const mapStateToProps = state => {
-  console.log("state -> " + state.today)
+  // console.log("state -> " + JSON.stringify(state.today))
   return {
     todayInfos: state.today
   }
 }
 
-const todayInfosSetting = (infos, cityTitle) => {
+const todayInfosSetting = (fetchedToday, cityTitle) => {
   return {
-    type: 'TODAY',
-    weather_state_abbr: infos.weather_state_abbr,
-    weather_state_name: infos.weather_state_name,
-    applicable_date: infos.applicable_date,
-    the_temp: infos.the_temp,
-    title: cityTitle,
+    type: actionTypes.WEATHER_INFOS,
+    today: fetchedToday,
+    city: cityTitle,
   }
 }
 
@@ -87,7 +85,7 @@ const fetchTheWeather = woeId => {
     fetch(proxyUrl + baseUrl + woeId)
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
+        console.log(data)
         // const week = data.consolidated_weather.slice(1,6)
         // console.log(week)
 
