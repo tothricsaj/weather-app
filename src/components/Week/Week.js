@@ -27,8 +27,8 @@ const DalyWeatherInfo = props => {
     <div className={style.dalyWeather}>
       <p>{dayNameConverter(props.dalyInfo.applicable_date)}</p>
       <img src={`https://www.metaweather.com//static/img/weather/png/64/${props.dalyInfo.weather_state_abbr}.png`} alt=""/>
-      <p className={style.dalyTemperature}>{props.dalyInfo.min_temp.toFixed(2)}C</p>
-      <p className={style.dalyTemperature}>{props.dalyInfo.max_temp.toFixed(2)}C</p>
+      <p className={style.dalyTemperature}>{props.dalyInfo.min_temp.toFixed(2)}&#8451;</p>
+      <p className={style.dalyTemperature}>{props.dalyInfo.max_temp.toFixed(2)}&#8451;</p>
     </div>
   )
 }

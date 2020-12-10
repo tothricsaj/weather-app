@@ -53,7 +53,7 @@ const Location = props => {
       </div>
 
       <div className={style.temerature}>
-        <p className={style.tempValue}>{weatherData ? weatherData.the_temp: 'Loading....'} C</p>
+        <p className={style.tempValue}>{weatherData ? weatherData.the_temp: 'Loading....'} &#8451;</p>
         <h1>{weatherData ? weatherData.weather_state_name : 'Loading....'}</h1>
       </div>
 
