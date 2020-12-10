@@ -72,10 +72,11 @@ const mapStateToProps = state => {
   }
 }
 
-const todayInfosSetting = (fetchedToday, cityTitle) => {
+const todayInfosSetting = (fetchedToday, fetchedWeek, cityTitle) => {
   return {
     type: actionTypes.WEATHER_INFOS,
     today: fetchedToday,
+    week: fetchedWeek,
     city: cityTitle,
   }
 }
@@ -85,11 +86,13 @@ const fetchTheWeather = woeId => {
     fetch(proxyUrl + baseUrl + woeId)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        // const week = data.consolidated_weather.slice(1,6)
+        // console.log(data)
+        const today = data.consolidated_weather[0]
+        const week = data.consolidated_weather.slice(1,6)
+        const city = data.title
         // console.log(week)
 
-        dispatch(todayInfosSetting(data.consolidated_weather[0], data.title))
+        dispatch(todayInfosSetting(today, week, city))
 
         console.log('%cEnd of the fetching....', 'color: orange;')
       }).catch(err => {

@@ -10,6 +10,7 @@ const weatherInfos = (state=initialState, action) => {
             return {
                 ...weatherInfos,
                 today: action.today,
+                week: action.week,
                 city: action.city
             }
     }
