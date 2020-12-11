@@ -24,12 +24,11 @@
 .SearchBox {
     width: 80%;
     margin: 100px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: inline-block;
 }
 
 .SearchBox input {
+    width: calc(70% - 4px);
     padding: 10px;
     background-color: transparent;
     border: 1px solid whitesmoke;
@@ -43,4 +42,32 @@
     border: 1px solid #6F4CC1;
     color: whitesmoke;
     cursor: pointer;
+}
+
+.searchResults {
+    width: 60%;
+    max-height: 300px;
+    /* display: none; */
+    overflow-y: auto;
+    position: absolute;
+    background-color: #6F4CC1;
+}
+
+.resultList {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.resultList li {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-bottom: 1px solid whitesmoke;
+    cursor: pointer;
+}
+
+.resultList li:hover {
+    background-color: whitesmoke;
+    color: #6F4CC1;
 }

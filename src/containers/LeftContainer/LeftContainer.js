@@ -4,7 +4,7 @@ import Location from '../../components/Location/Location'
 import Search from '../../components/Search/Search'
 
 const LeftContainer = props => {
-  const [showSearch, setShowSearch] = useState(false)
+  const [showSearch, setShowSearch] = useState(true)
 
   const showSearchHandler = () => {
     setShowSearch(!showSearch)
