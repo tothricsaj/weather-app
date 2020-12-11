@@ -13,7 +13,7 @@ const LeftContainer = props => {
   return (
     <div className={style.leftContainer}>
         <Location  showSearch={showSearchHandler} />
-        {showSearch && <Search />}
+        {showSearch && <Search closeSearch={showSearchHandler} />}
     </div>
   )
 }

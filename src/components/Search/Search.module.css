@@ -1,0 +1,46 @@
+.Search {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: var(--softDeepBlue);
+    z-index: 1;
+}
+
+.closeSearch {
+    width: 10px;
+    height: 10px;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.SearchBox {
+    width: 80%;
+    margin: 100px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SearchBox input {
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.SearchBox button {
+    padding: 10px;
+    background-color:#6F4CC1;
+    border: 1px solid #6F4CC1;
+    color: whitesmoke;
+    cursor: pointer;
+}
