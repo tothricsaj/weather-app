@@ -1,45 +1,49 @@
 import React, {useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import * as actionTypes from '../../store/actions/actionTypes'
+import { fetchTheWeather } from '../../store/actions/weather'
+import {BASE_URL, PROXY_URL} from '../../constants'
 import style from './Location.module.css'
-
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-const baseUrl = 'https://www.metaweather.com/api/location/'
 
 const Location = props => {
   const [woeId, setWoeId] = useState(null)
   const [weatherData, setWeatherData] = useState('')
+  const [city, setCity] = useState('')
 
   useEffect(() => {
     let url
     navigator.geolocation.getCurrentPosition(pos => {
 
-      url = `${baseUrl}search/?lattlong=${pos.coords.latitude},${pos.coords.longitude}`
+      url = `${BASE_URL}search/?lattlong=${pos.coords.latitude},${pos.coords.longitude}`
 
-      fetch(proxyUrl + url)
+      fetch(PROXY_URL + url)
       .then(res => res.json())
       .then(data => {
         setWoeId(data[0].woeid)
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        throw new Error(err)
+      })
     })
   }, [])
 
   useEffect(() => {
-    if(woeId) {
-      console.log('Fetching the weather datas')
+    if(woeId)
       props.onTodayInfosSetting(woeId)
-      console.log(props.todayInfos)
-    }
   }, [woeId])
 
   useEffect(() => {
     setWeatherData(props.todayInfos)
-  }, [props.todayInfos])
+    setCity(props.city)
+  }, [props.todayInfos, props.city])
 
   return (
     <div className={style.location}>
       <div className={style.buttons}>
-        <button className={style.search}>Search for places</button>
+        <button
+          className={style.search}
+          onClick={props.showSearch}
+        >
+          Search for places
+        </button>
         <button className={style.search}>Location</button>
       </div>
 
@@ -52,13 +56,13 @@ const Location = props => {
       </div>
 
       <div className={style.temerature}>
-        <p className={style.tempValue}>{weatherData ? weatherData.the_temp: 'Loading....'} &#8451;</p>
+        <p className={style.tempValue}>{weatherData ? weatherData.the_temp.toFixed(2): 'Loading....'} &#8451;</p>
         <h1>{weatherData ? weatherData.weather_state_name : 'Loading....'}</h1>
       </div>
 
       <div className={style.date}>
         <p>Today - {weatherData ? weatherData.applicable_date: 'Loading....'}</p>
-        <p>{weatherData ? weatherData.city : 'Loading....'}</p>
+        <p>{city ? city : 'Loading....'}</p>
       </div>
     </div>
   )
@@ -66,40 +70,8 @@ const Location = props => {
 
 const mapStateToProps = state => {
   return {
-    todayInfos: state.today
-  }
-}
-
-const weatherInfosSetting = (fetchedToday, fetchedWeek, fetchedHighlights, cityTitle) => {
-  return {
-    type: actionTypes.WEATHER_INFOS,
-    today: fetchedToday,
-    week: fetchedWeek,
-    highlights: fetchedHighlights,
-    city: cityTitle,
-  }
-}
-
-const fetchTheWeather = woeId => {
-  return (dispatch, getState) => {
-    fetch(proxyUrl + baseUrl + woeId)
-      .then(res => res.json())
-      .then(data => {
-        const today = data.consolidated_weather[0]
-        const week = data.consolidated_weather.slice(1,6)
-        const city = data.title
-        const highlights = {
-          windSpeed: today.wind_speed.toFixed(2),
-          humidity: today.humidity,
-          visibility: today.visibility.toFixed(2),
-          airPressure: today.air_pressure.toFixed(2)
-        }
-
-        dispatch(weatherInfosSetting(today, week, highlights, city))
-
-      }).catch(err => {
-        throw new Error(err)
-      })
+    todayInfos: state.today,
+    city: state.city
   }
 }
 

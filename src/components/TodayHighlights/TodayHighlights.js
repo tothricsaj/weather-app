@@ -60,7 +60,6 @@ const TodayHighlights = props => {
 }
 
 const mapStateToProps = state => {
-  console.log(state.highlights)
   return {
     highlights: state.highlights
   }

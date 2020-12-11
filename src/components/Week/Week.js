@@ -51,7 +51,6 @@ const Week = props => {
 }
 
 const mapStateToProps = state => {
-  console.log(state.week)
   return {
     week: state.week
   }
