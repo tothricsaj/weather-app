@@ -1,34 +1,16 @@
 import React, {useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchTheWeather } from '../../store/actions/weather'
-import {BASE_URL, PROXY_URL} from '../../constants'
 import style from './Location.module.css'
 
 const Location = props => {
-  const [woeId, setWoeId] = useState(null)
   const [weatherData, setWeatherData] = useState('')
   const [city, setCity] = useState('')
 
   useEffect(() => {
-    let url
-    navigator.geolocation.getCurrentPosition(pos => {
-
-      url = `${BASE_URL}search/?lattlong=${pos.coords.latitude},${pos.coords.longitude}`
-
-      fetch(PROXY_URL + url)
-      .then(res => res.json())
-      .then(data => {
-        setWoeId(data[0].woeid)
-      }).catch(err => {
-        throw new Error(err)
-      })
-    })
-  }, [])
-
-  useEffect(() => {
-    if(woeId)
-      props.onTodayInfosSetting(woeId)
-  }, [woeId])
+    if(props.woeId)
+      props.onTodayInfosSetting(props.woeId)
+  }, [props.woeId])
 
   useEffect(() => {
     setWeatherData(props.todayInfos)
