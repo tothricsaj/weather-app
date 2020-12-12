@@ -14,11 +14,25 @@ const Search = props => {
           console.log(data)
 
           setFethcedCityList(
-            data.map(city =>  <li key={city.woeid}>{city.title}</li>)
+            data.map(city =>  (
+              <li
+                key={city.woeid}
+                onClick={() => settingLocationHandler(city.woeid)}
+              >
+                  {city.title}
+              </li>
+            ))
           )
         })
     }
   }, [searchedCity])
+
+  const settingLocationHandler = (cityWoeID) => {
+    props.setLocation(cityWoeID)
+      setSearchedCity('')
+      setFethcedCityList([])
+      props.closeSearch()
+  }
 
   const searchCityHandler = (city) => {
     console.log(city)

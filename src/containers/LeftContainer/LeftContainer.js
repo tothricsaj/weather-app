@@ -34,7 +34,13 @@ const LeftContainer = props => {
           showSearch={showSearchHandler}
           woeId={woeId}
         />
-        {showSearch && <Search closeSearch={showSearchHandler} />}
+        {
+          showSearch
+            && <Search
+                closeSearch={showSearchHandler}
+                setLocation={setWoeId}
+              />
+        }
     </div>
   )
 }
