@@ -5,7 +5,7 @@ import style from './Search.module.css'
 const Search = props => {
   const [searchedCity, setSearchedCity] = useState('')
   const [fethcedCityList, setFethcedCityList] = useState([])
-  const [firstWoeID, setFirstWoeID] = useState('')
+  const [firstCity, setFirstCity] = useState({})
 
   useEffect(() => {
     if(searchedCity) {
@@ -15,27 +15,39 @@ const Search = props => {
           // console.log(data)
 
           if(data.length) {
-            setFirstWoeID(data[0].woeid)
+            setFirstCity({
+              title: data[0].title,
+              woeId: data[0].woeid
+            })
           }
 
           setFethcedCityList(
-            data.map(city =>  (
-              <li
-                key={city.woeid}
-                onClick={() => settingLocationHandler(city.woeid)}
-              >
-                  {city.title}
-              </li>
-            ))
+            data.map(city =>  {
+              const cityObj = {
+                title: city.title,
+                woeId: city.woeid
+              }
+
+              return (
+                <li
+                  key={city.woeid}
+                  onClick={() => settingLocationHandler(cityObj)}
+                >
+                    {city.title}
+                </li>
+              )
+            })
           )
         })
     }
   }, [searchedCity])
 
-  const settingLocationHandler = (cityWoeID) => {
-    props.setLocation(cityWoeID)
+  const settingLocationHandler = (cityObj) => {
+    props.setLocation(cityObj.woeId)
       clearCityStates()
       props.closeSearch()
+
+      saveCitys(cityObj.title, cityObj.woeId)
   }
 
   const searchCityHandler = (event) => {
@@ -43,7 +55,7 @@ const Search = props => {
     const city = event.target.value
 
     if(event.keyCode === 13) {
-      settingLocationHandler(firstWoeID)
+      settingLocationHandler(firstCity)
       return
     }
 
@@ -56,8 +68,27 @@ const Search = props => {
   }
 
   const clearCityStates = () => {
-      setSearchedCity('')
-      setFethcedCityList([])
+    setSearchedCity('')
+    setFethcedCityList([])
+  }
+
+  const saveCitys = (cityTitle, cityWoeID) => {
+    const LS_KEY = 'savedCitys'
+    let savedCitys = JSON.parse(localStorage.getItem(LS_KEY))
+
+    // console.log(cityTitle, cityWoeID)
+
+    if(!savedCitys) {
+      savedCitys = {}
+      console.log('First time')
+    } 
+
+    savedCitys[cityTitle] = cityWoeID
+
+    console.log(savedCitys)
+
+    localStorage.setItem(LS_KEY, JSON.stringify(savedCitys))
+
   }
 
   return (
@@ -68,7 +99,7 @@ const Search = props => {
           type="text"
           onKeyDown={(e) => searchCityHandler(e)}
         />
-        <button onClick={() => settingLocationHandler(firstWoeID)}>Search</button>
+        <button onClick={() => settingLocationHandler(firstCity)}>Search</button>
         <div className={style.searchResults}>
           <ul className={style.resultList}>
             {fethcedCityList}
